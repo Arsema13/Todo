@@ -1,0 +1,57 @@
+<div class="auth-page">
+  <div class="auth-card">
+    <h2>Welcome Back</h2>
+    <p class="auth-subtitle">Sign in to manage your todos</p>
+
+    <div class="alert alert-error" *ngIf="errorMessage">
+      {{ errorMessage }}
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          class="form-control"
+          [class.is-invalid]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
+          placeholder="you@example.com"
+        />
+        <div class="invalid-feedback" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+          <span *ngIf="loginForm.get('email')?.errors?.['required']">Email is required</span>
+          <span *ngIf="loginForm.get('email')?.errors?.['email']">Enter a valid email</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          formControlName="password"
+          class="form-control"
+          [class.is-invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+          placeholder="Min 6 characters"
+        />
+        <div class="invalid-feedback" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+          <span *ngIf="loginForm.get('password')?.errors?.['required']">Password is required</span>
+          <span *ngIf="loginForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters</span>
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        class="btn btn-primary btn-block"
+        [disabled]="loginForm.invalid || loading"
+      >
+        <span *ngIf="loading" class="btn-spinner"></span>
+        {{ loading ? 'Signing in...' : 'Sign In' }}
+      </button>
+    </form>
+
+    <p class="auth-footer">
+      Don't have an account? <a routerLink="/register">Register here</a>
+    </p>
+  </div>
+</div>

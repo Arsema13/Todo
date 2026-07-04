@@ -1,0 +1,55 @@
+<app-loading *ngIf="loading" message="Loading todo..."></app-loading>
+
+<div class="not-found" *ngIf="!loading && notFound">
+  <h2>Todo not found</h2>
+  <p>The todo you are looking for does not exist.</p>
+  <button class="btn btn-primary" routerLink="/todos">Back to Todos</button>
+</div>
+
+<div class="form-page" *ngIf="!loading && !notFound">
+  <div class="form-card">
+    <h2>Edit Todo</h2>
+    <p class="form-subtitle">Update your task details</p>
+
+    <div class="alert alert-error" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+    <form [formGroup]="todoForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="title">Title *</label>
+        <input
+          id="title"
+          type="text"
+          formControlName="title"
+          class="form-control"
+          [class.is-invalid]="title?.invalid && title?.touched"
+        />
+        <div class="invalid-feedback" *ngIf="title?.invalid && title?.touched">
+          <span *ngIf="title?.errors?.['required']">Title is required</span>
+          <span *ngIf="title?.errors?.['minlength']">Minimum 3 characters</span>
+          <span *ngIf="title?.errors?.['maxlength']">Maximum 200 characters</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea
+          id="description"
+          formControlName="description"
+          class="form-control"
+          rows="4"
+        ></textarea>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn btn-secondary" routerLink="/todos">Cancel</button>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="todoForm.invalid || saving"
+        >
+          {{ saving ? 'Saving...' : 'Save Changes' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

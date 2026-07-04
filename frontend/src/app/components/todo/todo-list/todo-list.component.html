@@ -1,0 +1,56 @@
+<div class="todo-list-page">
+  <div class="page-header">
+    <h1>My Todos</h1>
+    <button class="btn btn-primary" routerLink="/todos/create">+ Add Todo</button>
+  </div>
+
+  <div class="toolbar">
+    <div class="search-box">
+      <input
+        type="text"
+        placeholder="Search todos..."
+        [(ngModel)]="searchTerm"
+        (input)="onSearch()"
+      />
+      <button class="btn-clear" *ngIf="searchTerm" (click)="clearSearch()">&times;</button>
+    </div>
+
+    <button
+      class="btn btn-danger btn-sm"
+      *ngIf="todos.length > 0"
+      (click)="confirmDeleteAll()"
+    >
+      Delete All
+    </button>
+  </div>
+
+  <app-loading *ngIf="loading" message="Loading todos..."></app-loading>
+
+  <div class="empty-state" *ngIf="!loading && filteredTodos.length === 0 && !searchTerm">
+    <div class="empty-icon">📝</div>
+    <h3>No todos yet</h3>
+    <p>Create your first todo to get started!</p>
+    <button class="btn btn-primary" routerLink="/todos/create">Create Todo</button>
+  </div>
+
+  <div class="empty-state" *ngIf="!loading && filteredTodos.length === 0 && searchTerm">
+    <h3>No results found</h3>
+    <p>Try a different search term</p>
+    <button class="btn btn-secondary" (click)="clearSearch()">Clear Search</button>
+  </div>
+
+  <div class="todo-grid" *ngIf="!loading && filteredTodos.length > 0">
+    <app-todo-item
+      *ngFor="let todo of filteredTodos"
+      [todo]="todo"
+      (todoDeleted)="onTodoDeleted()"
+    ></app-todo-item>
+  </div>
+</div>
+
+<app-confirm-dialog
+  *ngIf="showConfirmDialog"
+  (confirm)="onConfirmDeleteAll()"
+  (cancel)="onCancelDialog()"
+  #confirmDialog
+></app-confirm-dialog>

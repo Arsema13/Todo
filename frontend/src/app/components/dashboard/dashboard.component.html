@@ -1,0 +1,32 @@
+<div class="dashboard">
+  <div class="welcome-section">
+    <h1>Welcome, {{ currentUser?.username || 'User' }}</h1>
+    <p>Here's an overview of your tasks</p>
+  </div>
+
+  <app-loading *ngIf="loading" message="Loading dashboard..."></app-loading>
+
+  <div class="stats-grid" *ngIf="!loading">
+    <div class="stat-card">
+      <div class="stat-icon"></div>
+      <div class="stat-info">
+        <span class="stat-number">{{ totalTodos }}</span>
+        <span class="stat-label">Total Todos</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="quick-actions" *ngIf="!loading">
+    <h2>Quick Actions</h2>
+    <div class="action-cards">
+      <div class="action-card" (click)="router.navigate(['/todos'])">
+        <h3>View All Todos</h3>
+        <p>Browse and manage your todo list</p>
+      </div>
+      <div class="action-card" (click)="router.navigate(['/todos/create'])">
+        <h3>Create New Todo</h3>
+        <p>Add a new task to your list</p>
+      </div>
+    </div>
+  </div>
+</div>

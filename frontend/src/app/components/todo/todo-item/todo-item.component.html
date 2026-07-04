@@ -1,0 +1,18 @@
+<div class="todo-card">
+  <div class="todo-content">
+    <h3 class="todo-title">{{ todo.title }}</h3>
+    <p class="todo-description" *ngIf="todo.description">{{ todo.description }}</p>
+    <span class="todo-date">{{ todo.created_at | date: 'mediumDate' }}</span>
+  </div>
+
+  <div class="todo-actions">
+    <button class="btn btn-sm btn-outline" (click)="editTodo()" title="Edit">Edit</button>
+    <button class="btn btn-sm btn-danger-outline" (click)="confirmDelete()" title="Delete">Delete</button>
+  </div>
+</div>
+
+<app-confirm-dialog
+  *ngIf="showConfirmDialog"
+  (confirm)="onConfirmDelete()"
+  (cancel)="onCancelDelete()"
+></app-confirm-dialog>

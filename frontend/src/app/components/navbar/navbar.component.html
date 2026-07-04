@@ -1,0 +1,26 @@
+<nav class="navbar">
+  <div class="navbar-container">
+    <a class="navbar-brand" routerLink="/" (click)="closeMenu()">Todo App</a>
+
+    <button class="hamburger" (click)="toggleMenu()" [class.active]="menuOpen">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div class="navbar-links" [class.open]="menuOpen">
+      <a routerLink="/dashboard" (click)="closeMenu()" *ngIf="isLoggedIn">Dashboard</a>
+      <a routerLink="/todos" (click)="closeMenu()" *ngIf="isLoggedIn">My Todos</a>
+      <a routerLink="/todos/create" (click)="closeMenu()" *ngIf="isLoggedIn">Add Todo</a>
+
+      <div class="navbar-right">
+        <span class="user-greeting" *ngIf="isLoggedIn && currentUser">
+          Hi, {{ currentUser.username }}
+        </span>
+        <a routerLink="/login" (click)="closeMenu()" *ngIf="!isLoggedIn">Login</a>
+        <a routerLink="/register" (click)="closeMenu()" *ngIf="!isLoggedIn">Register</a>
+        <button class="btn btn-logout" (click)="logout()" *ngIf="isLoggedIn">Logout</button>
+      </div>
+    </div>
+  </div>
+</nav>
