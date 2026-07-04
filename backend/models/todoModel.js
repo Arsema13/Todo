@@ -1,4 +1,4 @@
-const pool = require('../config/db');
+const pool = require('../backend/config/db');
 
 const TodoModel = {
   create: async (userId, title, description) => {

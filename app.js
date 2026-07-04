@@ -1,8 +1,8 @@
 const express = require('express');
 const cors = require('cors');
-const todoRoutes = require('./routes/todoRoutes');
-const authRoutes = require('./routes/authRoutes');
-const errorHandler = require('./middleware/errorHandler');
+const todoRoutes = require('./backend/routes/todoRoutes');
+const authRoutes = require('./backend/routes/authRoutes');
+const errorHandler = require('./backend/middleware/errorHandler');
 
 const app = express();
 
